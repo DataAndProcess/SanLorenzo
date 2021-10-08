@@ -408,7 +408,7 @@ for filetw in filestw:
     print("start working: " + filetw[0])
     try:
         generare_csv(dictionary,filetw[0].replace(dataDir+"/", ""))
-        result = subprocess.run(['bash','/media/andrea/LaCie/dap_elaborazione_storico_2/a.sh',filetw], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        result = subprocess.run(['bash','/media/andrea/LaCie/dap_elaborazione_storico_2/a.sh',dataDir], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         lines = str(result.stdout).split("\\n")
         # jData = open(filetw[0], 'r')
         # lines = jData.readlines()
