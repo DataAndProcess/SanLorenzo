@@ -6,7 +6,6 @@ import threading
 import sqlite3
 import json
 import sys
-import subprocess
 
 
 #---------THREAD-----------------
@@ -397,21 +396,18 @@ lookTranslation = get_lookup_translation()
 # print(lookupList) testata
 samplingTime = 5  # campione
 threadId = 0
-dataDir = "/media/andrea/LaCie/dap_elaborazione_storico_2/totaldata/row"
+dataDir = "Data"
 # dataDir = str(sys.argv[1])
 
 scan_folder(dataDir)
 filestw = get_files_ordered()
-
 for filetw in filestw:
     lock_file((filetw[0],))
     print("start working: " + filetw[0])
     try:
         generare_csv(dictionary,filetw[0].replace(dataDir+"/", ""))
-        result = subprocess.run(['bash','/media/andrea/LaCie/dap_elaborazione_storico_2/a.sh',dataDir], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        lines = str(result.stdout).split("\\n")
-        # jData = open(filetw[0], 'r')
-        # lines = jData.readlines()
+        jData = open(filetw[0], 'r')
+        lines = jData.readlines()
         tmp = json.loads(lines[0])
         bottomTs = timestamp_in_unix(tmp["timestamp"])
     except Exception as ex:
